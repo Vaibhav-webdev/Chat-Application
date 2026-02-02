@@ -24,7 +24,7 @@ export async function GET() {
 
     return NextResponse.json({
       success: true,
-      resumes: user.resumes
+      resumes: user.thumbnails
     });
 
   } catch (error) {

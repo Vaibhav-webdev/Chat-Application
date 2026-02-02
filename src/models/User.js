@@ -1,46 +1,11 @@
 import mongoose from "mongoose";
 
-const educationSchema = new mongoose.Schema({
-  institutionName: { type: String, default: "" },
-  degree: { type: String, default: "" },
-  fieldOfStudy: { type: String, default: "" },
-  startDate: { type: String, default: "" },
-  endDate: { type: String, default: "" },
-  gpa: { type: String, default: "" }
-});
-
-const experienceSchema = new mongoose.Schema({
-  companyName: { type: String, default: "" },
-  jobTitle: { type: String, default: "" },
-  startDate: { type: String, default: "" },
-  endDate: { type: String, default: "" },
-  currentlyWorking: { type: Boolean, default: false },
-  jobDescription: { type: String, default: "" }
-});
-
-const projectSchema = new mongoose.Schema({
-  projectName: { type: String, default: "" },
-  projectType: { type: String, default: "" },
-  projectDescription: { type: String, default: "" }
-});
-
-const resumeSchema = new mongoose.Schema({
-  title: { type: String, default: "" },
-  fullName: { type: String, default: "" },
-  email: { type: String, default: "" },
-  phone: { type: String, default: "" },
-  location: { type: String, default: "" },
-  profession: { type: String, default: "" },
-  linkedInProfile: { type: String, default: "" },
-  website: { type: String, default: "" },
-  color: { type: String, default: "#2563eb" },
-  template: { type: String, default: "0" },
-  image: { type: String, default: "" },
-  professionalSummary: { type: String, default: "" },
-  experience: [experienceSchema],
-  education: [educationSchema],
-  projects: [projectSchema],
-  skills: { type: [String], default: [] },
+const thumbnailsSchema = new mongoose.Schema({
+  image: { type: String, defalut: "/7.jpg"},
+  title: { type: String, default: "How to Earn Money as a Student" },
+  aspect: { type: String, default: "16:9" },
+  style: { type: String, default: "Bold & Graphic" },
+  color: { type: String, default: "Vibrant" },
 
   createdAt: {
     type: Date,
@@ -62,7 +27,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
   },
-  resumes: [resumeSchema],
+  thumbnails: [thumbnailsSchema],
   createdAt: {
     type: Date,
     default: Date.now

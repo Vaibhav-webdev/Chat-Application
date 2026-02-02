@@ -5,7 +5,7 @@ import { auth } from "../../auth";
 
 export async function POST(request) {
     try {
-        const { title } = await request.json()
+        const { image , title, aspect, style, colorTheme } = await request.json()
         
         const session = await auth()
         const email = session.user.email
@@ -16,8 +16,12 @@ export async function POST(request) {
             { email: email },
             {
                 $push: {
-                    resumes: {
+                    thumbnails: {
+                        image: image,
                         title: title,
+                        aspect: aspect,
+                        style: style,
+                        color: colorTheme
                     }
                 }
             }
