@@ -12,7 +12,7 @@ const page = () => {
             Last updated: <b className="text-black">26/1/2026</b>
           </p>
           <p className="text-gray-700 mt-5 text-base sm:text-lg">
-            These Terms and Conditions govern your use of <b className="text-black">[Zenix.com], Owner [Vaibhav Shukla]</b>. This website is created as a demo e-commerce project for learning and portfolio purposes only. By accessing or using this website, you agree to be bound by these Terms and Conditions.
+            These Terms and Conditions govern your use of <b className="text-black">[Pigio], Owner [Vaibhav Shukla]</b>. This website is created as a demo e-commerce project for learning and portfolio purposes only. By accessing or using this website, you agree to be bound by these Terms and Conditions.
           </p>
         </div>
 
