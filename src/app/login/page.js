@@ -54,9 +54,9 @@ export default function LoginPage() {
       <div className="absolute inset-0 bg-[#017092]" />
       <div className="absolute top-1/3 left-1/3 w-[500px] h-[500px] bg-[#3a1f46] opacity-40 blur-[180px]" />
 
-      <div className="relative z-10 flex min-h-screen items-center justify-between px-60">
+      <div className="relative flex z-10 min-h-screen items-center justify-between px-40 lg:px-60">
         {/* LEFT BRAND */}
-        <div className="flex flex-col items-center">
+        <div className="hidden lg:flex flex-col items-center">
           <div className="text-[8vw]">💬</div>
           <h1 className="text-5xl font-bold text-white tracking-tight">
             PigioChat

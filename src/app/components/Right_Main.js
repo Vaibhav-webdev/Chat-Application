@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { Send } from 'lucide-react'
+import { toast } from 'sonner'
 import Message from "./Messages"
 import socket from '@/lib/socket'
 import { useSession } from "next-auth/react";
@@ -13,17 +14,21 @@ const Right_Main = () => {
   const [messages, setMessages] = useState([])
 
   useEffect(() => {
-    if (!session) return;
-
-    socket.connect();
-
-    socket.on("chat message", (msg) => {
-      if (document.hidden) {
-  new Notification("New message received!");
-}
-      setMessages((prev) => [...prev, msg]);
-      messageSound?.play().catch(() => {});
-    });
+    try {
+      if (!session) return;
+  
+      socket.connect();
+  
+      socket.on("chat message", (msg) => {
+        if (document.hidden) {
+    new Notification("New message received!");
+  }
+        setMessages((prev) => [...prev, msg]);
+        messageSound?.play().catch(() => {});
+      });
+    } catch (error) {
+      toast.error("No Internet Connection!")
+    }
 
     return () => {
       socket.off("chat message");
