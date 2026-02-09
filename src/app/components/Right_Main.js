@@ -1,57 +1,57 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Send } from 'lucide-react'
 import { toast } from 'sonner'
 import Message from "./Messages"
+import { useSearchParams } from 'next/navigation'
 import socket from '@/lib/socket'
 import { useSession } from "next-auth/react";
 
 const Right_Main = () => {
+  const searchParams = useSearchParams()
+  const groupId = searchParams.get("room")
+
   const { data: session } = useSession();
+  const popSoundRef = useRef(null)
 
   const [message, setMessage] = useState("")
+  const [show, setshow] = useState(false)
   const [messages, setMessages] = useState([])
 
   useEffect(() => {
-    try {
-      if (!session) return;
-  
+    popSoundRef.current = new Audio("/pop.mp3")
+
+    if (!socket.connected) {
       socket.connect();
-  
-      socket.on("chat message", (msg) => {
-        if (document.hidden) {
-    new Notification("New message received!");
-  }
-        setMessages((prev) => [...prev, msg]);
-        messageSound?.play().catch(() => {});
-      });
-    } catch (error) {
-      toast.error("No Internet Connection!")
     }
 
+    socket.on("connect", () => {
+      console.log("Connected:", socket.id);
+    });
+
+    socket.on("chat message", (data) => {
+      setMessages(prev => [...prev, data])
+      popSoundRef.current?.play().catch(() => {})
+    });
+
     return () => {
-      socket.off("chat message");
+      socket.off("chat message"); 
       socket.disconnect();
     };
-  }, [session]);
+  }, []);
   
-  const messageSound = typeof window !== "undefined" ? new Audio("/pop.mp3") : null;
-
   const handleSubmit = (e) => {
-    e.preventDefault()
-
-    if (!message.trim() || !session) return;
+    e.preventDefault();
+    if (!message.trim()) return;
 
     socket.emit("chat message", {
       text: message,
       senderId: session.user.name,
-      timestamp: new Date().toISOString(),
-    });
-
+      timestamp: Date.now(),
+    })
     setMessage("")
   }
-
   return (
     <div className="relative h-full">
       <div className='p-4'>
@@ -64,17 +64,16 @@ const Right_Main = () => {
           />
         ))}
       </div>
-
       <div className='absolute bottom-0 w-full'>
         <form
           onSubmit={handleSubmit}
-          className="flex justify-between p-3 backdrop-blur-md"
+          className="flex justify-between p-3 backdrop-blur-md bg-b"
         >
           <input
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             type="text"
-            className="flex-1 px-6 py-3 rounded-full bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="flex-1 px-2 lg:px-6 py-3 rounded-full bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Type a message..."
           />
 
