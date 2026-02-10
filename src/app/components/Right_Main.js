@@ -67,7 +67,7 @@ const Right_Main = () => {
       <div className='absolute bottom-0 w-full'>
         <form
           onSubmit={handleSubmit}
-          className="flex justify-between p-3 backdrop-blur-md bg-b"
+          className="flex justify-between lg:p-3 lg:backdrop-blur-md bg-b"
         >
           <input
             value={message}
