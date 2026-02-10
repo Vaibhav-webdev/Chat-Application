@@ -90,8 +90,7 @@ export default function Left({ open, setOpen }) {
         <button
       onClick={() =>
         {
-          signOut({ redirect: true })
-          router.push("https://pigio.vercel.app/login")
+          signOut({ redirect: true, callbackUrl: "https://pigio.vercel.app/login" })
         }}
       className="px-4 mt-2 cursor-pointer sm:px-6 py-2 sm:py-3 rounded-full border border-gray-300 text-white/80 text-sm sm:text-base hover:bg-white/30 transition w-full"
     >
